@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            background-color: #057bc4;
+            font-family: Verdana;
+            text-align: center;
+        }
+ 
+        /* Styling the Form (Color, Padding, Shadow) */
+        form {
+            background-color: #fff;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px 20px;
+            box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.5);
+        }
+        .form-control {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: white">Customer Survey Form</h1>
+    <form id="surveyForm" class="form-control">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required><br><br>
+        
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required><br><br>
+        
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required><br><br>
+        
+        <label for="country">Country:</label>
+        <select id="country" required>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <!-- Add more countries here -->
+        </select><br><br>
+        
+        <label>Gender:</label>
+        <input type="checkbox" id="male" value="Male"> Male
+        <input type="checkbox" id="female" value="Female"> Female<br><br>
+        
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+        
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" required><br><br>
+        
+        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </form>
+
+    <div id="popup" style="display: none;">
+        <!-- Popup content will be displayed here -->
+    </div>
+
+    <script>
+        function submitForm() {
+            // Validate the form
+            if (validateForm()) {
+                // If all validations pass, display a popup with selected values
+                displayPopup();
+                // Reset the form after displaying the popup
+                document.getElementById("surveyForm").reset();
+            }
+        }
+
+        function validateForm() {
+            const form = document.getElementById("surveyForm");
+            // Check if First Name and Last Name contain only letters
+            const nameRegex = /^[A-Za-z]+$/;
+            if (!nameRegex.test(form.firstName.value) || !nameRegex.test(form.lastName.value)) {
+                alert("First Name and Last Name should contain only letters.");
+                return false;
+            }
+
+           
+            
+// Check if Date of Birth is a valid date
+            const dob = new Date(form.dob.value);
+            if (isNaN(dob.getTime())) {
+                alert("Invalid Date of Birth.");
+                return false;
+            }
+
+            // Check if at least one Gender checkbox is checked
+            if (!form.male.checked && !form.female.checked) {
+                alert("Please select a Gender.");
+                return false;
+            }
+            return true; // For this example, assume all validations pass
+        }
+
+        function displayPopup() {
+            const popup = document.getElementById("popup");
+            const form = document.getElementById("surveyForm");
+
+            const selectedValues = {
+                'First Name': form.firstName.value,
+                'Last Name': form.lastName.value,
+                'Date of Birth': form.dob.value,
+                'Country': form.country.value,
+                'Gender': (form.male.checked ? 'Male' : '') + (form.female.checked ? 'Female' : ''),
+                'Profession': form.profession.value,
+                'Email': form.email.value,
+                'Mobile Number': form.mobile.value,
+            };
+
+            // Create the popup content
+            let popupContent = '<h2>Survey Form Submission</h2>';
+            for (const key in selectedValues) {
+                popupContent += `<p><strong>${key}:</strong> ${selectedValues[key]}</p>`;
+            }
+
+            popup.innerHTML = popupContent;
+            popup.style.display = "block";
+        }
+
+        function resetForm() {
+            document.getElementById("surveyForm").reset();
+        }
+    </script>
+    <footer>
+        <p style="color: white">2018 Customer Survey form. All rights reserved| deigned by W3Layouts</p>
+    </footer>
+</body>
+</html>

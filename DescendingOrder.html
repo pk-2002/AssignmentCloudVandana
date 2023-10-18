@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Descending Sort</title>
+</head>
+<body>
+
+<h1>Descending Sort Example</h1>
+
+<button onclick="sortArrayDescending()">Sort in Descending Order</button>
+
+<p>Original Array: <span id="originalArray"></span></p>
+<p>Sorted Array (Descending): <span id="sortedArray"></span></p>
+
+<script>
+function sortArrayDescending() {
+    const originalArray = [5, 3, 1, 4, 2]; // Replace with your array
+    const sortedArray = originalArray.slice(); // Create a copy of the original array
+
+    // Use a custom comparison function to sort in descending order
+    sortedArray.sort(function(a, b) {
+        return b - a;
+    });
+
+    // Display the original and sorted arrays
+    document.getElementById("originalArray").textContent = originalArray.join(", ");
+    document.getElementById("sortedArray").textContent = sortedArray.join(", ");
+}
+</script>
+
+</body>
+</html>
